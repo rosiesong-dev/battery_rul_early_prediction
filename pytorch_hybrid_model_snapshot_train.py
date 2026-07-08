@@ -13,7 +13,7 @@ import torch.nn as nn
 from torchsummary import  summary
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
-from sklearn.externals import joblib
+import joblib
 from utils.sgdr import CosineAnnealingLR_with_Restart
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -88,7 +88,7 @@ hidden_dim = 16
 model_saved_dir = './result'
 data_path = './processed_data/first_100_cycle_data_hybrid.pt'
 
-data_set = torch.load(data_path)
+data_set = torch.load(data_path, weights_only=False)
 train_x = torch.from_numpy(data_set['train_x']).permute(0,2,1).float()
 train_y = torch.from_numpy(data_set['train_y']).float()
 train_x_fc = torch.from_numpy(data_set['train_x_fc']).float()

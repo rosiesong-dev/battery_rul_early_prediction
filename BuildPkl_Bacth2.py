@@ -15,8 +15,8 @@ print(list(batch.keys()))
 num_cells = batch['summary'].shape[0]
 bat_dict = {}
 for i in range(num_cells):
-    cl = f[batch['cycle_life'][i, 0]].value
-    policy = f[batch['policy_readable'][i, 0]].value.tobytes()[::2].decode()
+    cl = f[batch['cycle_life'][i, 0]][:]
+    policy = f[batch['policy_readable'][i, 0]][()].tobytes()[::2].decode()
     summary_IR = np.hstack(f[batch['summary'][i, 0]]['IR'][0, :].tolist())
     summary_QC = np.hstack(f[batch['summary'][i, 0]]['QCharge'][0, :].tolist())
     summary_QD = np.hstack(f[batch['summary'][i, 0]]['QDischarge'][0, :].tolist())
@@ -31,15 +31,15 @@ for i in range(num_cells):
     cycles = f[batch['cycles'][i, 0]]
     cycle_dict = {}
     for j in range(cycles['I'].shape[0]):
-        I = np.hstack((f[cycles['I'][j, 0]].value))
-        Qc = np.hstack((f[cycles['Qc'][j, 0]].value))
-        Qd = np.hstack((f[cycles['Qd'][j, 0]].value))
-        Qdlin = np.hstack((f[cycles['Qdlin'][j, 0]].value))
-        T = np.hstack((f[cycles['T'][j, 0]].value))
-        Tdlin = np.hstack((f[cycles['Tdlin'][j, 0]].value))
-        V = np.hstack((f[cycles['V'][j, 0]].value))
-        dQdV = np.hstack((f[cycles['discharge_dQdV'][j, 0]].value))
-        t = np.hstack((f[cycles['t'][j, 0]].value))
+        I = np.hstack((f[cycles['I'][j, 0]][:]))
+        Qc = np.hstack((f[cycles['Qc'][j, 0]][:]))
+        Qd = np.hstack((f[cycles['Qd'][j, 0]][:]))
+        Qdlin = np.hstack((f[cycles['Qdlin'][j, 0]][:]))
+        T = np.hstack((f[cycles['T'][j, 0]][:]))
+        Tdlin = np.hstack((f[cycles['Tdlin'][j, 0]][:]))
+        V = np.hstack((f[cycles['V'][j, 0]][:]))
+        dQdV = np.hstack((f[cycles['discharge_dQdV'][j, 0]][:]))
+        t = np.hstack((f[cycles['t'][j, 0]][:]))
         cd = {'I': I, 'Qc': Qc, 'Qd': Qd, 'Qdlin': Qdlin, 'T': T, 'Tdlin': Tdlin, 'V': V, 'dQdV': dQdV, 't': t}
         cycle_dict[str(j)] = cd
 

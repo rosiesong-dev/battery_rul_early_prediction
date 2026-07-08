@@ -24,7 +24,7 @@ def extract_bat_cycle_life(batch,index):
     Y= []
     for ind in index:
         cell_no = list(batch.keys())[ind]
-        Y_log.append(log(np.ravel(batch[cell_no]['cycle_life']),10))
+        Y_log.append(np.log10(np.ravel(batch[cell_no]['cycle_life']))[0])
         Y.append(batch[cell_no]['cycle_life'])
     Y = np.ravel(Y)
     return Y, Y_log
@@ -214,8 +214,8 @@ def extract_slope_intercept_cycle_to_cycle(batch,index,start_cycle,end_cycle):
         slope_,intercept_ = np.linalg.lstsq(X, y,rcond=-1)[0]
         # slope.append(slope_)
         # intercept.append(intercept_)
-        slope.append(log(abs(slope_),10))
-        intercept.append(log(abs(intercept_),10))
+        slope.append(np.log10(abs(slope_)))
+        intercept.append(np.log10(abs(intercept_)))
     slope = np.reshape(slope,(-1,1))
     intercept = np.reshape(intercept,(-1,1))
     return slope,intercept
@@ -234,7 +234,7 @@ def extract_avg_charge_time_5(batch,index):
         cell_no = list(batch.keys())[ind]
         avg_time_ = np.average(batch[cell_no]['summary']['chargetime'][1:6]) #Cycle 2 to cycle 6
         # avg_time.append(avg_time_)
-        avg_time.append(log(abs(avg_time_),10))
+        avg_time.append(np.log10(abs(avg_time_)))
     avg_time = np.reshape(avg_time,(-1,1))
     return avg_time
     pass
@@ -254,8 +254,8 @@ def extract_temp_2_to_100_max_min(batch,index):
         cell_no = list(batch.keys())[ind]
         temp= batch[cell_no]['summary']['Tavg'][1:100]
         # integral.append(integrate_)
-        max_temp.append(log(abs(max(temp)),10))
-        min_temp.append(log(abs(min(temp)), 10))
+        max_temp.append(np.log10(abs(max(temp))))
+        min_temp.append(np.log10(abs(min(temp))))
     max_temp = np.reshape(max_temp,(-1,1))
     min_temp = np.reshape(min_temp, (-1, 1))
     return max_temp,min_temp
@@ -273,9 +273,9 @@ def extract_temp_integral_2_to_100(batch,index):
     integral = []
     for ind in index:
         cell_no = list(batch.keys())[ind]
-        integrate_ = integrate.simps(batch[cell_no]['summary']['Tavg'][1:100])
+        integrate_ = integrate.simpson(batch[cell_no]['summary']['Tavg'][1:100])
         # integral.append(integrate_)
-        integral.append(log(abs(integrate_),10))
+        integral.append(np.log10(abs(integrate_)))
     integral = np.reshape(integral,(-1,1))
     return integral
     pass
@@ -295,7 +295,7 @@ def extract_min_ir_2_to_100(batch,index):
         min_ir_ = min(ir[ir>0]) # Remove 0 value for log
         # min_ir_ = min(batch[cell_no]['summary']['IR'][1:100])
         # min_ir.append(min_ir_)
-        min_ir.append(log(abs(min_ir_),10))
+        min_ir.append(np.log10(abs(min_ir_)))
     min_ir = np.reshape(min_ir,(-1,1))
     return min_ir
     pass
@@ -313,7 +313,7 @@ def extract_diff_ir_2_100(batch,index):
         cell_no = list(batch.keys())[ind]
         diff_ir_ = batch[cell_no]['summary']['IR'][99] - batch[cell_no]['summary']['IR'][1]
         # diff_ir.append(diff_ir_)
-        diff_ir.append(log(abs(diff_ir_),10))
+        diff_ir.append(np.log10(abs(diff_ir_)))
     diff_ir = np.reshape(diff_ir,(-1,1))
     return diff_ir
     pass
@@ -331,7 +331,7 @@ def extract_ir_cycle(batch,index,cycle):
     for ind in index:
         cell_no = list(batch.keys())[ind]
         ir_ = batch[cell_no]['summary']['IR'][cycle-1]
-        ir.append(log(abs(ir_),10))
+        ir.append(np.log10(abs(ir_)))
     ir = np.reshape(ir,(-1,1))
     return ir
     pass

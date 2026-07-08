@@ -6,7 +6,7 @@ import pickle
 import os
 import torch
 from sklearn import preprocessing
-from sklearn.externals import joblib
+import joblib
 import argparse
 from statistics import variance
 from scipy.stats import skew,kurtosis,pearsonr
