@@ -1,4 +1,4 @@
-# Battery Cycle Life Prediction 🔋 
+# 🔋 Battery Cycle Life Prediction 🔋 
 
 This project is for paper "A Hybrid Ensemble Deep Learning Approach for Early Prediction of Battery Remaining Useful Life"
 
