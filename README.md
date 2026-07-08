@@ -1,4 +1,4 @@
-# Battery Cycle Life Prediction
+# Battery Cycle Life Prediction 🔋 
 
 This project is for paper "A Hybrid Ensemble Deep Learning Approach for Early Prediction of Battery Remaining Useful Life"
 
@@ -44,5 +44,5 @@ pytorch_hybrid_model_snapshot_train.py includes hybrid model implementation.
 Before running, need to generate the dataset via data_process_for_hybrid_model.py.
 
 ```
-python pytorch_hybrid_model_snapshot_train.py
+python pytorch_hybrid_model_snapshot_train.py     
 ```
